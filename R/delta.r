@@ -65,7 +65,7 @@ lorenz  <- function(rt, comp){
     q  <- qdelta(rt, comp) %>%
         mutate(rdelta = delta/m) %>%
         mutate(c = cumsum(rdelta)/sum(rdelta))
-     inhib  <-   MESS::auc(q$p, q$c)
+     inhib  <-   2*MESS::auc(q$p, q$c)-1
      out  <- list('inhib' = inhib, 'q' = q)
     return(out)
 }

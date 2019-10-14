@@ -78,7 +78,7 @@ We now plot ELF.
         ggtitle('Error Location Function')
     plot.elf1
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 The Error Location Index (ELI) is the area under ELF.
 
@@ -111,7 +111,7 @@ We can now plot these aggregated ELF functions.
         ggtitle('Aggregated Error Location Function')
     plot.elf
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
 Delta plots
 -----------
@@ -120,11 +120,40 @@ To study inhibition, we focus on correct trials. We again start by
 focusing on one subject, and this time consider only one condition (A).
 We first compute the absolute Lorenz-delta function.
 
-LD.1A contains two parts: - inhib which is the Lorenz-inhibition index -
-q which contains: - p: quantiles - qc: quantile function for compatible
-trials - qi: quantile function for incompatible trials - delta =
-(qi-qc)/2 - m = (qc+qi)/2 - rdelta = delta/m - c = cumulative function
-of rdelta
+    data1A <- data.conflict %>% filter(sujet == 1, condition == 'A', acc == 1)
+    LD.1A <- lorenz(data1A$rt, data1A$compatible)
+    glimpse(LD.1A)
+
+    List of 2
+     $ inhib: num 0.695
+     $ q    :'data.frame':  175 obs. of  7 variables:
+      ..$ p     : num [1:175] 0.00571 0.01143 0.01714 0.02286 0.02857 ...
+      ..$ qc    : num [1:175] 0.327 0.331 0.334 0.338 0.338 ...
+      ..$ qi    : num [1:175] 0.365 0.372 0.372 0.382 0.384 ...
+      ..$ delta : num [1:175] 0.0377 0.0406 0.0382 0.0443 0.046 ...
+      ..$ m     : num [1:175] 0.346 0.352 0.353 0.36 0.361 ...
+      ..$ rdelta: num [1:175] 0.109 0.115 0.108 0.123 0.127 ...
+      ..$ c     : num [1:175] 0.00753 0.0155 0.02298 0.0315 0.0403 ...
+
+LD.1A contains two parts:
+
+-   inhib which is the Lorenz-inhibition index
+
+-   q which contains:
+
+    -   p: quantiles
+
+    -   qc: quantile function for compatible trials
+
+    -   qi: quantile function for incompatible trials
+
+    -   delta = (qi-qc)/2
+
+    -   m = (qc+qi)/2
+
+    -   rdelta = delta/m
+
+    -   c = cumulative function of rdelta
 
 Let's plot the Lorenz-delta plot.
 
@@ -135,7 +164,7 @@ Let's plot the Lorenz-delta plot.
         ggtitle('Lorenz-delta plot') 
     plot.1A
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 Now, let compute an aggregate Lorenz-delta plot accross subjects for
 each condition. First we compute Lorenz-delta plots for each subject and
@@ -171,7 +200,7 @@ and plot them.
         ggtitle('aggregated  Lorenz-delta plot')
     plot
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 `data.inhib` computes delta plots and Lorenz-inhibition index for each
 subject and each condition.

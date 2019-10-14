@@ -124,20 +124,30 @@ plot.elf
 To study inhibition, we focus on correct trials. We again start by focusing on one subject, and this time consider only one condition (A). We first compute the absolute Lorenz-delta function. 
 
 
-```{r, echo = FALSE}
+```{r}
 data1A <- data.conflict %>% filter(sujet == 1, condition == 'A', acc == 1)
 LD.1A <- lorenz(data1A$rt, data1A$compatible)
+glimpse(LD.1A)
 ```
 LD.1A contains two parts: 
+
 -  inhib which is the Lorenz-inhibition index
+
 - q which contains:
-  - p: quantiles
-  - qc: quantile function for compatible trials
-  - qi: quantile function for incompatible trials
-  - delta = (qi-qc)/2
-  - m = (qc+qi)/2
-  - rdelta = delta/m
-  - c = cumulative function of rdelta 
+
+	- p: quantiles
+
+	- qc: quantile function for compatible trials
+
+	- qi: quantile function for incompatible trials
+ 
+	- delta = (qi-qc)/2
+
+	- m = (qc+qi)/2
+
+	- rdelta = delta/m
+  
+	- c = cumulative function of rdelta 
   
 Let's plot the Lorenz-delta plot.
 
