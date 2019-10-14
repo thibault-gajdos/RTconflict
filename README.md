@@ -1,3 +1,4 @@
+
 Contents
 --------
 
@@ -120,11 +121,40 @@ To study inhibition, we focus on correct trials. We again start by
 focusing on one subject, and this time consider only one condition (A).
 We first compute the absolute Lorenz-delta function.
 
-LD.1A contains two parts: - inhib which is the Lorenz-inhibition index -
-q which contains: - p: quantiles - qc: quantile function for compatible
-trials - qi: quantile function for incompatible trials - delta =
-(qi-qc)/2 - m = (qc+qi)/2 - rdelta = delta/m - c = cumulative function
-of rdelta
+    data1A <- data.conflict %>% filter(sujet == 1, condition == 'A', acc == 1)
+    LD.1A <- lorenz(data1A$rt, data1A$compatible)
+    glimpse(LD.1A)
+
+    List of 2
+     $ inhib: num 0.391
+     $ q    :'data.frame':  175 obs. of  7 variables:
+      ..$ p     : num [1:175] 0.00571 0.01143 0.01714 0.02286 0.02857 ...
+      ..$ qc    : num [1:175] 0.327 0.331 0.334 0.338 0.338 ...
+      ..$ qi    : num [1:175] 0.365 0.372 0.372 0.382 0.384 ...
+      ..$ delta : num [1:175] 0.0377 0.0406 0.0382 0.0443 0.046 ...
+      ..$ m     : num [1:175] 0.346 0.352 0.353 0.36 0.361 ...
+      ..$ rdelta: num [1:175] 0.109 0.115 0.108 0.123 0.127 ...
+      ..$ c     : num [1:175] 0.00753 0.0155 0.02298 0.0315 0.0403 ...
+
+LD.1A contains two parts:
+
+-   inhib which is the Lorenz-inhibition index
+
+-   q which contains:
+
+    -   p: quantiles
+
+    -   qc: quantile function for compatible trials
+
+    -   qi: quantile function for incompatible trials
+
+    -   delta = (qi-qc)/2
+
+    -   m = (qc+qi)/2
+
+    -   rdelta = delta/m
+
+    -   c = cumulative function of rdelta
 
 Let's plot the Lorenz-delta plot.
 
@@ -190,7 +220,7 @@ strongly advice against the use of this measure.
      $ i          :'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","5",..: 1 1 2 2 3 3 4 4 5 5 ...
       ..$ cond : Factor w/ 2 levels "A","B": 1 2 1 2 1 2 1 2 1 2 ...
-      ..$ index: num [1:40] 0.695 0.692 0.996 0.672 0.788 ...
+      ..$ index: num [1:40] 0.391 0.384 0.991 0.343 0.577 ...
      $ delta.slope:'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","4",..: 1 10 11 12 13 14 15 16 17 18 ...
       ..$ slope: num [1:40] -0.4596 -0.0198 -0.329 -0.3738 -0.9421 ...
@@ -204,5 +234,5 @@ The mean of the Lorenz-inhibition index is
     # A tibble: 2 x 2
       cond  index
       <fct> <dbl>
-    1 A     0.679
-    2 B     0.669
+    1 A     0.358
+    2 B     0.338
