@@ -16,10 +16,6 @@ elf(rt, accuracy, na.rm = TRUE)
 \description{
 This function compute Error Location Function
 }
-\examples{
-elf(df$rt, df$accuracy) 
-Return L(p)  proportion of errors among the pth first quantile of response time (computed on all responses)
-}
 \keyword{Error}
 \keyword{Function}
 \keyword{Location}
