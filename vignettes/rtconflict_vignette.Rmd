@@ -2,7 +2,7 @@
 title: "RTconflict"
 author: "Thibault Gajdos, Mathieu Servant, Thierry Hasbroucq, Karen Davranche"
 date: "`r Sys.Date()`"
-output: rmarkdown::md_vignette
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Vignette Title}
   %\VignetteEngine{knitr::rmarkdown}

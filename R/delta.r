@@ -62,19 +62,8 @@ qdelta <- function (rt, compatible){
 #' Return  inhibition index and Lorenz-Delta plot
 
 lorenz  <- function(rt, comp){
-    df <- data.frame(rt = rt, comp = comp)
-    rt_c <- df %>% filter(comp == 'c')
-    rt_c <- rt_c$rt
-    rt_i <- df %>% filter(comp == 'i')
-    rt_i <- rt_i$rt
-    mu_D <- mean(rt_i) - mean(rt_c)
-    mu_M <- (mean(rt_i) + mean(rt_c))/2
-    sd_D <- sd(rt_i) - sd(rt_c)
-    sd_M <- (sd(rt_i) + sd(rt_c))/2
-    mu <- mu_D - (sd_D * mu_M/sd_M)
-    
     q  <- qdelta(rt, comp) %>%
-        mutate(rdelta = (delta - mu)/m) %>%
+        mutate(rdelta = delta/m) %>%
         mutate(c = cumsum(rdelta)/sum(rdelta))
      inhib  <-   2*MESS::auc(q$p, q$c)-1
      out  <- list('inhib' = inhib, 'q' = q)

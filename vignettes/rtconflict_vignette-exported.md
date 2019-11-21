@@ -78,7 +78,7 @@ We now plot ELF.
         ggtitle('Error Location Function')
     plot.elf1
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 The Error Location Index (ELI) is the area under ELF.
 
@@ -111,7 +111,7 @@ We can now plot these aggregated ELF functions.
         ggtitle('Aggregated Error Location Function')
     plot.elf
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
 Delta plots
 -----------
@@ -125,7 +125,7 @@ We first compute the absolute Lorenz-delta function.
     glimpse(LD.1A)
 
     List of 2
-     $ inhib: num 0.391
+     $ inhib: num 0.695
      $ q    :'data.frame':  175 obs. of  7 variables:
       ..$ p     : num [1:175] 0.00571 0.01143 0.01714 0.02286 0.02857 ...
       ..$ qc    : num [1:175] 0.327 0.331 0.334 0.338 0.338 ...
@@ -164,7 +164,7 @@ Let's plot the Lorenz-delta plot.
         ggtitle('Lorenz-delta plot') 
     plot.1A
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
 Now, let compute an aggregate Lorenz-delta plot accross subjects for
 each condition. First we compute Lorenz-delta plots for each subject and
@@ -200,7 +200,7 @@ and plot them.
         ggtitle('aggregated  Lorenz-delta plot')
     plot
 
-<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
 `data.inhib` computes delta plots and Lorenz-inhibition index for each
 subject and each condition.
@@ -219,7 +219,7 @@ strongly advice against the use of this measure.
      $ i          :'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","5",..: 1 1 2 2 3 3 4 4 5 5 ...
       ..$ cond : Factor w/ 2 levels "A","B": 1 2 1 2 1 2 1 2 1 2 ...
-      ..$ index: num [1:40] 0.391 0.384 0.991 0.343 0.577 ...
+      ..$ index: num [1:40] 0.695 0.692 0.996 0.672 0.788 ...
      $ delta.slope:'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","4",..: 1 10 11 12 13 14 15 16 17 18 ...
       ..$ slope: num [1:40] -0.4596 -0.0198 -0.329 -0.3738 -0.9421 ...
@@ -233,5 +233,5 @@ The mean of the Lorenz-inhibition index is
     # A tibble: 2 x 2
       cond  index
       <fct> <dbl>
-    1 A     0.358
-    2 B     0.338
+    1 A     0.679
+    2 B     0.669

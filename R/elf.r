@@ -6,6 +6,9 @@
 #' @param na.rm should missing data be disregarded (if there is no error). Default is TRUE
 #' @keywords Error Location Function
 #' @export
+#' @examples
+#' elf(df$rt, df$accuracy) 
+#' Return L(p)  proportion of errors among the pth first quantile of response time (computed on all responses)
 
 
 elf <- function (rt, accuracy, na.rm = TRUE) {
