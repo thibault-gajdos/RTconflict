@@ -1,4 +1,3 @@
-
 #' @title delta
 #'
 #' @description This function compute classical delta plots
