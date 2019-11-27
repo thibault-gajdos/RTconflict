@@ -82,8 +82,8 @@ lorenz  <- function(rt, comp){
 #' comp: compatible vs incompatible ('c' vs 'i')
 #' sujet: subjects id (transformed into factor if needed)
 #' cond: experimental conditions (transformed into factor if needed)
-#' dquantile: number of quantiles to compute last segment slope
-#' Output: delta, delta slopes,  inhibition index
+#' dquantile: number of quantiles to compute last segment slope and linear approximation
+#' Output: last segment delta slope, delta slopes, linear approximation (trend = coefficient, intercept), inhibition index
 #' q, delta.slope, index
 
 inhib.delta <- function(rt,  comp, sujet = sujet, cond = NA, dquantile = 20){
@@ -101,19 +101,22 @@ inhib.delta <- function(rt,  comp, sujet = sujet, cond = NA, dquantile = 20){
             i  <-  add_row(i, sujet = s, cond = c, index = l)
             }
     }
-    delta.slope  <- data.frame(sujet = character(), cond = character(), slope = numeric())
+    delta.slope  <- data.frame(sujet = character(), cond = character(), slope = numeric(), intercept = numeric(), trend = numeric())
     for (c in unique(data$cond)){
         data0  <- data %>% filter(cond == c)
         d  <- with(data0, delta(rt = rt, compatible = comp, sujet = sujet, quant = (1:dquantile)/dquantile)) %>%
             mutate(slope = 0)
+        l <- lm(delta ~ rt, data = d)
         for (s in unique(data$sujet)){
         d[d$sujet == s,]$slope  <-
             (d[d$sujet == s  & d$q == dquantile,]$d - d[d$sujet == s & d$q == dquantile-1,]$d)/
             (d[d$sujet == s & d$q == dquantile,]$rt - d[d$sujet == s & d$q == dquantile-1,]$rt)
         }
+        d[d$sujet == s,]$trend <- summary(l)$coefficients[2]
+        d[d$sujet == s,]$intercept <- summary(l)$coefficients[1]
         d  <- d %>%
             filter(q == 1) %>%
-            select(sujet, slope) %>%
+            select(sujet, slope, trend, intercept) %>%
             mutate(cond = c)
         delta.slope = rbind(delta.slope, d)
     }

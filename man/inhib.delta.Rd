@@ -20,8 +20,8 @@ rt: response time
 comp: compatible vs incompatible ('c' vs 'i')
 sujet: subjects id (transformed into factor if needed)
 cond: experimental conditions (transformed into factor if needed)
-dquantile: number of quantiles to compute last segment slope
-Output: delta, delta slopes,  inhibition index
+dquantile: number of quantiles to compute last segment slope and linear approximation
+Output: last segment delta slope, delta slopes, linear approximation (trend = coefficient, intercept), inhibition index
 q, delta.slope, index
 }
 \keyword{dela}
