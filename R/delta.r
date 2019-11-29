@@ -87,7 +87,7 @@ lorenz  <- function(rt, comp){
 
 inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
     ## data
-    if (is.na(cond[1])){cond <- rep(C,length(rt))}
+    if (is.na(cond[1])){cond <- rep('C',length(rt))}
     if (is.na(sujet[1])){sujet <- rep('A',length(rt))}
     data <- data.frame(rt = rt,  comp = comp, sujet = as.factor(sujet), cond = as.factor(cond))
     
