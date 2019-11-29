@@ -118,8 +118,8 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
             select(sujet, slope) %>%
             mutate(cond = c) %>%
             mutate(trend = summary(l)$coefficients[2]) %>%
-            mutate(intercept =  summary(l)$coefficients[1]) %>%
-           delta.slope  = rbind(delta.slope, d)
+            mutate(intercept =  summary(l)$coefficients[1]) 
+        delta.slope  = rbind(delta.slope, d)
     }
     return(list('i'= i,  'delta.slope' = delta.slope))
 }
