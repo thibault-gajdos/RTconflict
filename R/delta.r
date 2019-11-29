@@ -85,9 +85,10 @@ lorenz  <- function(rt, comp){
 #' Output: last segment delta slope, delta slopes, linear approximation (trend = coefficient, intercept), inhibition index
 #' q, delta.slope, index
 
-inhib.delta <- function(rt,  comp, sujet = sujet, cond = NA, dquantile = 20){
+inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
     ## data
     if (is.na(cond[1])){cond <- rep(1,length(rt))}
+    if (is.na(sujet[1])){sujet <- rep('A',length(rt))}
     data <- data.frame(rt = rt,  comp = comp, sujet = as.factor(sujet), cond = as.factor(cond))
     
     ## inhib
@@ -100,7 +101,7 @@ inhib.delta <- function(rt,  comp, sujet = sujet, cond = NA, dquantile = 20){
             i  <-  add_row(i, sujet = s, cond = c, index = l)
             }
     }
-    delta.slope  <- data.frame(sujet = character(), cond = character(), slope = numeric(), intercept = numeric(), trend = numeric())
+    delta.slope  <- data.frame(sujet = character(), cond = character(), slope = numeric())
     for (c in unique(data$cond)){
         data0  <- data %>% filter(cond == c)
         d  <- with(data0, delta(rt = rt, compatible = comp, sujet = sujet, quant = (1:dquantile)/dquantile)) %>%
@@ -111,12 +112,13 @@ inhib.delta <- function(rt,  comp, sujet = sujet, cond = NA, dquantile = 20){
             (d[d$sujet == s  & d$q == dquantile,]$d - d[d$sujet == s & d$q == dquantile-1,]$d)/
             (d[d$sujet == s & d$q == dquantile,]$rt - d[d$sujet == s & d$q == dquantile-1,]$rt)
         }
-        d[d$sujet == s,]$trend <- summary(l)$coefficients[2]
-        d[d$sujet == s,]$intercept <- summary(l)$coefficients[1]
+        
         d  <- d %>%
             filter(q == 1) %>%
-            select(sujet, slope, trend, intercept) %>%
-            mutate(cond = c)
+            select(sujet, slope) %>%
+            mutate(cond = c) %>%
+            mutate(trend = summary(l)$coefficients[2]) %>%
+            mutate(intercept =  summary(l)$coefficients[1]) %>%
         delta.slope = rbind(delta.slope, d)
     }
     return(list('i'= i,  'delta.slope' = delta.slope))
