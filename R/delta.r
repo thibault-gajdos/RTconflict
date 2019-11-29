@@ -87,7 +87,7 @@ lorenz  <- function(rt, comp){
 
 inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
     ## data
-    if (is.na(cond[1])){cond <- rep(1,length(rt))}
+    if (is.na(cond[1])){cond <- rep(C,length(rt))}
     if (is.na(sujet[1])){sujet <- rep('A',length(rt))}
     data <- data.frame(rt = rt,  comp = comp, sujet = as.factor(sujet), cond = as.factor(cond))
     
@@ -119,7 +119,7 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
             mutate(cond = c) %>%
             mutate(trend = summary(l)$coefficients[2]) %>%
             mutate(intercept =  summary(l)$coefficients[1]) %>%
-        delta.slope = rbind(delta.slope, d)
+            mutate(delta.slope = rbind(delta.slope, d))
     }
     return(list('i'= i,  'delta.slope' = delta.slope))
 }
