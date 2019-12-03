@@ -85,7 +85,7 @@ lorenz  <- function(rt, comp){
 #' Output: last segment delta slope, delta slopes, linear approximation (trend = coefficient, intercept), inhibition index
 #' q, delta.slope, index
 
-inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 20){
+inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 10){
     ## data
     if (is.na(cond[1])){cond <- rep('C',length(rt))}
     if (is.na(sujet[1])){sujet <- rep('A',length(rt))}
