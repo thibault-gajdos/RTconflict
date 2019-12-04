@@ -12,7 +12,7 @@
 #' Return L(p)  proportion of errors among the pth first quantile of response time (computed on all responses)
 
 
-delta <- function(rt,compatible,sujet = NULL, quant = c(1:5)/5){
+delta <- function(rt,compatible,sujet = NULL, quant = c(1:10)/10){
     assign('compatible',compatible)
     assign('rt',rt)
     if (is.null(sujet)){sujet <- rep('x',length(rt))}
@@ -106,7 +106,6 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 10){
         data0  <- data %>% filter(cond == c)
         d  <- with(data0, delta(rt = rt, compatible = comp, sujet = sujet, quant = (1:dquantile)/dquantile)) %>%
             mutate(slope = 0)
-        l <- lm(delta ~ rt, data = d)
         for (s in unique(data$sujet)){
         d[d$sujet == s,]$slope  <-
             (d[d$sujet == s  & d$q == dquantile,]$d - d[d$sujet == s & d$q == dquantile-1,]$d)/
@@ -117,8 +116,6 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 10){
             filter(q == 1) %>%
             select(sujet, slope) %>%
             mutate(cond = c) %>%
-            mutate(trend = summary(l)$coefficients[2]) %>%
-            mutate(intercept =  summary(l)$coefficients[1]) 
         delta.slope  = rbind(delta.slope, d)
     }
     return(list('i'= i,  'delta.slope' = delta.slope))
