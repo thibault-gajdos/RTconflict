@@ -4,7 +4,7 @@ Contents
 1.  [Overview](#overview)
 2.  [Data](#data)
 3.  [ELF](#ELF)
-4.  [Interference Distribution Index](#delta)
+4.  [Interference Distribution Index](#Interference Distribution Index)
 
 Overview
 --------
@@ -114,7 +114,7 @@ We can now plot these aggregated ELF functions.
 
 <img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Interference Effect Distribution
+Interference Distribution Index
 --------------------------------
 
 To study inhibition, we focus on correct trials. We again start by
