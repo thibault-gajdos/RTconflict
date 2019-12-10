@@ -62,7 +62,7 @@ qdelta <- function (rt, compatible, type = 7){
 #' Return  inhibition index and Lorenz-Delta plot
 
 lorenz  <- function(rt, comp, type = 7){
-    q  <- qdelta(rt, com, type = type) %>%
+    q  <- qdelta(rt, comp, type = type) %>%
         mutate(c = cumsum(delta)/sum(delta))
      inhib  <-   MESS::auc(q$p, q$c)
      out  <- list('inhib' = inhib, 'q' = q)
@@ -90,7 +90,7 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 10, type =
     ## data
     if (is.na(cond[1])){cond <- rep('C',length(rt))}
     if (is.na(sujet[1])){sujet <- rep('A',length(rt))}
-    data <- data.frame(rt = rt,  comp = comp, sujet = as.factor(sujet), cond = as.factor(cond))
+    data <- data.frame(rt = rt, comp = comp, sujet = as.factor(sujet), cond = as.factor(cond))
     
     ## inhib
     i  <- data.frame(sujet = factor(), cond = factor(), index = numeric())
