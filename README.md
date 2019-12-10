@@ -4,9 +4,9 @@ Contents
 1.  [Overview](#overview)
 2.  [Data](#data)
 3.  [ELF](#ELF)
-4.  [Interference Distribution Index](#Interference Distribution Index)
+4.  [Interference Distribution Index](#inteference-distribution-index)
 
-Overview
+# Overview
 --------
 
 This package provides tools to analyse response time (RT) distributions
@@ -25,7 +25,7 @@ To install, use the following command:
 
 `devtools::install_github("thibault-gajdos/RTconflict")`
 
-Data
+# Data
 ----
 
 We use simulated data for a conflict task.
@@ -47,7 +47,7 @@ and B). Therefore, there is 800 trials by subject.
     3 i          A         0.878 0.516
     4 i          B         0.880 0.515
 
-Error Location Function
+# Error Location Function
 -----------------------
 
 We start with a single subject (subject 1). Error Location Functions are
@@ -114,7 +114,7 @@ We can now plot these aggregated ELF functions.
 
 <img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Interference Distribution Index
+# Interference Distribution Index
 --------------------------------
 
 To study inhibition, we focus on correct trials. We again start by
