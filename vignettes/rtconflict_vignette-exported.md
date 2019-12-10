@@ -4,21 +4,22 @@ Contents
 1.  [Overview](#overview)
 2.  [Data](#data)
 3.  [ELF](#ELF)
-4.  [Delta plots](#delta)
+4.  [Interference Distribution Index](#delta)
 
 Overview
 --------
 
 This package provides tools to analyse response time (RT) distributions
-for conflict tasks in R. Specifically, it allows to compute: - the Error
-Location Function and the Error Location Index proposed in Servant, M.,
-Gajdos, T., & Davranche, K. (2018). ELF: A new measure of response
-capture. *Psychonomic Bulletin & Review*, 1-9.
+for conflict tasks in R. Specifically, it allows to compute:
 
--   Lorenz-inhibition index proposed in Gajdos, T., Servant, M.,
-    Hasbroucq, T., & Davranche, K. (2019, March 21). Assessing
-    Inhibitory Control from Reaction Time Distributions: The Lorenz
-    Inhibition Index. <https://doi.org/10.31234/osf.io/7f5n8>
+-   the Error Location Function and the Error Location Index proposed in
+    Servant, M., Gajdos, T., & Davranche, K. (2018). ELF: A new measure
+    of response capture. *Psychonomic Bulletin & Review*, 1-9.
+
+-   Interference Distribution Index proposed in Gajdos, T., Servant, M.,
+    Hasbroucq, T., & Davranche, K. (2019, december 20). A measure of the
+    Interference Effect Distribution.
+    <https://doi.org/10.31234/osf.io/7f5n8>
 
 To install, use the following command:
 
@@ -78,7 +79,7 @@ We now plot ELF.
         ggtitle('Error Location Function')
     plot.elf1
 
-<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
+<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-4-1.png" style="display: block; margin: auto;" />
 
 The Error Location Index (ELI) is the area under ELF.
 
@@ -111,29 +112,32 @@ We can now plot these aggregated ELF functions.
         ggtitle('Aggregated Error Location Function')
     plot.elf
 
-<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
+<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-7-1.png" style="display: block; margin: auto;" />
 
-Delta plots
------------
+Interference Effect Distribution
+--------------------------------
 
 To study inhibition, we focus on correct trials. We again start by
 focusing on one subject, and this time consider only one condition (A).
-We first compute the absolute Lorenz-delta function.
+We compute the Interference Distribution Index.
 
     data1A <- data.conflict %>% filter(sujet == 1, condition == 'A', acc == 1)
     LD.1A <- lorenz(data1A$rt, data1A$compatible)
     glimpse(LD.1A)
 
     List of 2
-     $ inhib: num 0.695
-     $ q    :'data.frame':  175 obs. of  7 variables:
-      ..$ p     : num [1:175] 0.00571 0.01143 0.01714 0.02286 0.02857 ...
-      ..$ qc    : num [1:175] 0.327 0.331 0.334 0.338 0.338 ...
-      ..$ qi    : num [1:175] 0.365 0.372 0.372 0.382 0.384 ...
-      ..$ delta : num [1:175] 0.0377 0.0406 0.0382 0.0443 0.046 ...
-      ..$ m     : num [1:175] 0.346 0.352 0.353 0.36 0.361 ...
-      ..$ rdelta: num [1:175] 0.109 0.115 0.108 0.123 0.127 ...
-      ..$ c     : num [1:175] 0.00753 0.0155 0.02298 0.0315 0.0403 ...
+     $ inhib: num 0.755
+     $ q    :'data.frame':  175 obs. of  6 variables:
+      ..$ p    : num [1:175] 0.00571 0.01143 0.01714 0.02286 0.02857 ...
+      ..$ qc   : num [1:175] 0.327 0.331 0.334 0.338 0.338 ...
+      ..$ qi   : num [1:175] 0.365 0.372 0.372 0.382 0.384 ...
+      ..$ delta: num [1:175] 0.0377 0.0406 0.0382 0.0443 0.046 ...
+      ..$ m    : num [1:175] 0.346 0.352 0.353 0.36 0.361 ...
+      ..$ c    : num [1:175] 0.00676 0.01405 0.02091 0.02887 0.03713 ...
+
+As an option, one can specify the quantile method by setting "type" to a
+value between 1 and 9, 7 be the default. See the documentation of the
+quantile function in R for further details.
 
 LD.1A contains two parts:
 
@@ -151,26 +155,25 @@ LD.1A contains two parts:
 
     -   m = (qc+qi)/2
 
-    -   rdelta = delta/m
+    -   c = cumulative function of delta
 
-    -   c = cumulative function of rdelta
-
-Let's plot the Lorenz-delta plot.
+Let's plot the Lorenz-interference plot.
 
     plot.1A <- ggplot(data = LD.1A$q, aes(x = p, y = c)) +
         geom_line(size = 1) +
         xlab('p') +
-        ylab('% R(p)') +
-        ggtitle('Lorenz-delta plot') 
+        ylab('% D(p)') +
+        ggtitle('Lorenz-inhibition plot') 
     plot.1A
 
-<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
+<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-9-1.png" style="display: block; margin: auto;" />
 
-Now, let compute an aggregate Lorenz-delta plot accross subjects for
-each condition. First we compute Lorenz-delta plots for each subject and
-each condition. Note that it might be the case that different subjects
-or conditions have different numbers of quantiles. To solve this, we
-constrain the number of quantiles by grouping quantiles by 1%.
+Now, let compute an aggregate Lorenz-inhibition plot accross subjects
+for each condition. First we compute Lorenz-inhibition plots for each
+subject and each condition. Note that it might be the case that
+different subjects or conditions have different numbers of quantiles. To
+solve this, we constrain the number of quantiles by grouping quantiles
+by 1%.
 
     x  <- NULL 
     for (s in unique(data.conflict$sujet)){
@@ -196,22 +199,22 @@ and plot them.
     plot  <- ggplot(data = x.ag, aes(x = p, y = c, group = condition, colour = condition)) +
         geom_line(size = 1) +
         xlab('p') +
-        ylab('% R(p)') +
-        ggtitle('aggregated  Lorenz-delta plot')
+        ylab('% D(p)') +
+        ggtitle('aggregated  Lorenz-inhibition plot')
     plot
 
-<img src="/Users/thibault/thib/projects/Rpackage/RTconflict/vignettes/rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
+<img src="rtconflict_vignette-exported_files/figure-markdown_strict/unnamed-chunk-12-1.png" style="display: block; margin: auto;" />
 
-`data.inhib` computes delta plots and Lorenz-inhibition index for each
-subject and each condition.
+`data.inhib` computes delta plots and the Inhibition Distribution Index
+for each subject and each condition.
 
     data.inhib <- data.conflict %>% filter(acc == 1)
     inhib  <- inhib.delta(rt = data.inhib$rt, comp = data.inhib$compatible, sujet = data.inhib$sujet, cond = data.inhib$condition)
 
-The function generates three data frame: - i: Lorenz-inhibition index by
-subject and condition - delta.slope: slope of the last segment of the
-delta plot by subject and condition. This is just for information, as we
-strongly advice against the use of this measure.
+The function generates three data frame: - i: Inhibition Distribution
+Index index by subject and condition - delta.slope: slope of the last
+segment of the delta plot by subject and condition. This is just for
+information, as we strongly advice against the use of this measure.
 
     glimpse(inhib)
 
@@ -219,13 +222,13 @@ strongly advice against the use of this measure.
      $ i          :'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","5",..: 1 1 2 2 3 3 4 4 5 5 ...
       ..$ cond : Factor w/ 2 levels "A","B": 1 2 1 2 1 2 1 2 1 2 ...
-      ..$ index: num [1:40] 0.695 0.692 0.996 0.672 0.788 ...
+      ..$ index: num [1:40] 0.755 0.603 1.483 0.645 0.853 ...
      $ delta.slope:'data.frame':    40 obs. of  3 variables:
       ..$ sujet: Factor w/ 20 levels "1","2","3","4",..: 1 10 11 12 13 14 15 16 17 18 ...
-      ..$ slope: num [1:40] -0.4596 -0.0198 -0.329 -0.3738 -0.9421 ...
+      ..$ slope: num [1:40] -0.5493 0.0814 0.0715 -0.4077 -0.7678 ...
       ..$ cond : chr [1:40] "A" "A" "A" "A" ...
 
-The mean of the Lorenz-inhibition index is
+The mean of the Inhibition Distribution Index index is
 
     inhib$i %>%  group_by(cond) %>%
         summarise(index = mean(index)) 
@@ -233,5 +236,5 @@ The mean of the Lorenz-inhibition index is
     # A tibble: 2 x 2
       cond  index
       <fct> <dbl>
-    1 A     0.679
-    2 B     0.669
+    1 A     0.693
+    2 B     0.659
