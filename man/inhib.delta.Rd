@@ -4,7 +4,8 @@
 \alias{inhib.delta}
 \title{inhibibition indices}
 \usage{
-inhib.delta(rt, comp, sujet = NA, cond = NA, dquantile = 10)
+inhib.delta(rt, comp, sujet = NA, cond = NA, dquantile = 10,
+  type = 7)
 }
 \arguments{
 \item{dquantile}{number of quantiles used to compute the slope of last segment}
@@ -15,12 +16,13 @@ inhib.delta(rt, comp, sujet = NA, cond = NA, dquantile = 10)
 This function compute inhibition indices
 }
 \examples{
-inhib.delta(rt, comp, cond, dquantile = 20) 
+inhib.delta(rt, comp, sujet,  cond, dquantile = 10, type = 7) 
 rt: response time
 comp: compatible vs incompatible ('c' vs 'i')
 sujet: subjects id (transformed into factor if needed)
 cond: experimental conditions (transformed into factor if needed)
 dquantile: number of quantiles to compute last segment slope and linear approximation
+type: type of quantile function
 Output: last segment delta slope, delta slopes, linear approximation (trend = coefficient, intercept), inhibition index
 q, delta.slope, index
 }

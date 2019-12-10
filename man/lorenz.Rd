@@ -4,7 +4,7 @@
 \alias{lorenz}
 \title{Lorenz-Delta}
 \usage{
-lorenz(rt, comp)
+lorenz(rt, comp, type = 7)
 }
 \arguments{
 \item{rt}{Response time}

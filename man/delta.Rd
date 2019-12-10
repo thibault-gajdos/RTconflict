@@ -4,7 +4,7 @@
 \alias{delta}
 \title{delta}
 \usage{
-delta(rt, compatible, sujet = NULL, quant = c(1:5)/5)
+delta(rt, compatible, sujet = NULL, quant = c(1:10)/10)
 }
 \arguments{
 \item{rt}{Response time}
