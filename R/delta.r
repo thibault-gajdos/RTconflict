@@ -116,7 +116,7 @@ inhib.delta <- function(rt,  comp, sujet = NA, cond = NA, dquantile = 10, type =
         d  <- d %>%
             filter(q == 1) %>%
             select(sujet, slope) %>%
-            mutate(cond = c) %>%
+            mutate(cond = c) 
         delta.slope  = rbind(delta.slope, d)
     }
     return(list('i'= i,  'delta.slope' = delta.slope))
