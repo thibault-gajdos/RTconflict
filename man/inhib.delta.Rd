@@ -4,8 +4,7 @@
 \alias{inhib.delta}
 \title{inhibibition indices}
 \usage{
-inhib.delta(rt, comp, sujet = NA, cond = NA, dquantile = 10,
-  type = 7)
+inhib.delta(rt, comp, sujet = NA, cond = NA, dquantile = 10, type = 7)
 }
 \arguments{
 \item{dquantile}{number of quantiles used to compute the slope of last segment}
